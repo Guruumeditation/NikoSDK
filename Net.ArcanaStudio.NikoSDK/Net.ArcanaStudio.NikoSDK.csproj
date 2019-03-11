@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.8</Version>
+    <Authors>Olivier Matis</Authors>
+    <Company>Arcana Studio</Company>
+    <Description>Niko Home Control SDK for .NET Standard</Description>
+    <Copyright>Arcana Studio 2019</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Guruumeditation/NikoSDK</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/Guruumeditation/NikoSDK/blob/master/server.png?raw=true</PackageIconUrl>
+    <RepositoryUrl>https://github.com/Guruumeditation/NikoSDK</RepositoryUrl>
+    <PackageTags>Niko, Home Control</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RootNamespace>Net.ArcanaStudio.NikoSDK</RootNamespace>
+    <PackageId>Net.ArcanaStudio.NikoSDK</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Net.ArcanaStudio.NikoSDK.Model\Net.ArcanaStudio.NikoSDK.Model.csproj" />
+  </ItemGroup>
+
+</Project>

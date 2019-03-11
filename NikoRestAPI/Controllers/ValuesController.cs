@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using NikoSDK;
-using NikoSDK.Interfaces.Data;
+using Nat.ArcanaStudio.NikoSDK;
+using Nat.ArcanaStudio.NikoSDK.Interfaces;
 
 namespace NikoRestAPI.Controllers
 {
@@ -17,7 +17,8 @@ namespace NikoRestAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<string>>> Get()
         {
-            _nikoClient = new NikoClient("192.168.0.27");
+            _nikoClient = await  NikoClient.AutoDetect();
+            //_nikoClient = new NikoClient("192.168.0.27");
             _nikoClient.OnValueChanged += NikoClientOnOnValueChanged;
             _nikoClient.StartClient();
             await _nikoClient.StartEvents();

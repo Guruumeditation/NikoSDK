@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Net.ArcanaStudio.NikoSDK</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.8</Version>
+    <Authors>Olivier Matis</Authors>
+    <Company>Arcana Studio</Company>
+    <Description>Models library for Niko SDK</Description>
+    <Copyright>Arcana Studio 2019</Copyright>
+    <PackageProjectUrl>https://github.com/Guruumeditation/NikoSDK</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Guruumeditation/NikoSDK</RepositoryUrl>
+    <PackageTags>Niko, Home Control</PackageTags>
+    <PackageIconUrl>https://github.com/Guruumeditation/NikoSDK/blob/master/server.png?raw=true</PackageIconUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageId>Net.ArcanaStudio.NikoSDK.Model</PackageId>
+  </PropertyGroup>
+
+</Project>
