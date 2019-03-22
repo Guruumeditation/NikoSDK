@@ -17,6 +17,7 @@ variables:
 
 steps:
 - script: dotnet restore
+  displayName: 'dotnet restore'
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
@@ -25,4 +26,5 @@ steps:
   inputs:
     command: pack
     versioningScheme: byEnvVar
+    packagesToPack: '$(build.binariesdirectory)/$(BuildConfiguration)/NikoSDK.csproj'
     includeSymbols: true
