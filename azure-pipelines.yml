@@ -26,7 +26,6 @@ steps:
     command: pack
     versioningScheme: byEnvVar
     versionEnvVar:  NugetBetaVersion
-    packagesToPack: '$(build.binariesdirectory)/$(BuildConfiguration)/NikoSDK.csproj'
     includeSymbols: true
     
 - task: NuGetCommand@2
