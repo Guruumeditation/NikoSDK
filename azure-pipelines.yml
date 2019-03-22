@@ -35,6 +35,3 @@ steps:
     command: push
     nuGetFeedType: external
     publishFeedCredentials: 'Nuget Niko'
-    versioningScheme: byEnvVar
-    versionEnvVar: NugetBetaVersion
-    displayName: 'public nuget'
