@@ -28,3 +28,13 @@ steps:
     versionEnvVar:  NugetBetaVersion
     packagesToPack: '$(build.binariesdirectory)/$(BuildConfiguration)/NikoSDK.csproj'
     includeSymbols: true
+    
+- task: NuGetCommand@2
+  displayName: 'NuGet push'
+  inputs:
+    command: push
+    nuGetFeedType: external
+    publishFeedCredentials: 'Nuget Niko'
+    versioningScheme: byEnvVar
+    versionEnvVar: NugetBetaVersion
+    displayName: 'public nuget'
