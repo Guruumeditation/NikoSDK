@@ -13,7 +13,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  versionEnvVar: 1
+  versionEnvVar: $(NugetBetaVersion)
 
 steps:
 - script: dotnet restore
