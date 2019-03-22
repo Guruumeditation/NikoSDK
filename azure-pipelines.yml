@@ -20,18 +20,18 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
-- task: NuGetCommand@2
-  displayName: 'NuGet pack'
+# Pack NuGet packages.
+- task: DotNetCoreCLI@2
   inputs:
-    command: pack
+    command: 'pack'
+    configuration: 'release'
     versioningScheme: byEnvVar
     versionEnvVar:  NugetBetaVersion
-    includeSymbols: true
     packagesToPack: '**/NikoSDK*.csproj' 
     
-- task: NuGetCommand@2
-  displayName: 'NuGet push'
+# Push NuGet packages.
+- task: DotNetCoreCLI@2
   inputs:
-    command: push
+    command: 'push'
     nuGetFeedType: external
     publishFeedCredentials: 'Nuget Niko'
