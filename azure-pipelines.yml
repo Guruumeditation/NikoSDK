@@ -21,6 +21,8 @@ steps:
   displayName: 'dotnet build $(buildConfiguration)'
 
 - task: NuGetCommand@2
+  displayName: 'NuGet pack'
   inputs:
     command: pack
     versioningScheme: byEnvVar
+    includeSymbols: true
