@@ -28,10 +28,11 @@ steps:
     versioningScheme: byEnvVar
     versionEnvVar:  NugetBetaVersion
     packagesToPack: '**/NikoSDK*.csproj' 
-    
-- task: NuGetCommand@2
-  displayName: 'NuGet push'
+
+
+# Push NuGet packages.
+- task: DotNetCoreCLI@2
   inputs:
-    command: push
+    command: 'push'
     nuGetFeedType: external
-    publishFeedCredentials: NikoSDKNuget
+    publishFeedCredentials: Test2
