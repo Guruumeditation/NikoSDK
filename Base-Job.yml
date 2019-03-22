@@ -1,0 +1,39 @@
+jobs:
+- job: BaseBuild
+
+ # name: $(Date:yyyyMMdd)$(Rev:r)
+
+  pool:
+    name: Hosted VS2017
+    demands:
+    - MSBuild
+    - java
+
+  variables:
+    buildConfiguration: 'Release'
+
+  steps:
+
+  - script: dotnet tool install --global dotnet-sonarscanner
+    displayName: 'Install SonarCloud'
+
+  - script: dotnet sonarscanner begin /k:"Guruumeditation_NikoSDK" /o:"guruumeditation-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=$(SonarCloud-NikoSDK)
+    displayName: 'Prepare analysis on SonarCloud'
+
+  - script: dotnet build --configuration $(buildConfiguration) -p:Version=${{ parameters.Version }}
+    displayName: 'dotnet build $(buildConfiguration)'
+
+  - script: dotnet sonarscanner end /d:sonar.login=$(SonarCloud-NikoSDK)
+    displayName: 'Run Code Analysis'
+
+  # Pack NuGet packages.
+  - task: DotNetCoreCLI@2
+    displayName: 'Nuget Pack'
+    inputs:
+      command: 'pack'
+      configuration: 'release'
+      versioningScheme: byEnvVar
+      versionEnvVar:   ${{ parameters.NugetVersion }}
+      packagesToPack: '**/*.csproj' 
+      verbosityPack: Normal
+      packDirectory: '$(Build.ArtifactStagingDirectory)/packages'

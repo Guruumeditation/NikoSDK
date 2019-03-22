@@ -1,0 +1,9 @@
+jobs:
+- job: BaseBuild
+  steps:
+    - task: DotNetCoreCLI@2
+      displayName: dotnet nuget push
+      inputs:
+        command: custom
+        custom: nuget
+        arguments: push $(Build.ArtifactStagingDirectory)\packages\*.nupkg  --source https://api.nuget.org/v3/index.json --api-key $(nuget-apikey) --no-symbols true

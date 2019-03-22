@@ -3,16 +3,28 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.438
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NikoSDK", "NikoSDK\NikoSDK.csproj", "{75F7D322-8E70-4982-B5A6-000B44CD0BD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net.ArcanaStudio.NikoSDK", "Net.ArcanaStudio.NikoSDK\Net.ArcanaStudio.NikoSDK.csproj", "{75F7D322-8E70-4982-B5A6-000B44CD0BD4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NikoSDK.Model", "NikoSDK.Model\NikoSDK.Model.csproj", "{72AA9CB0-C0CE-4518-A074-89608EB0DE20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net.ArcanaStudio.NikoSDK.Model", "Net.ArcanaStudio.NikoSDK.Model\Net.ArcanaStudio.NikoSDK.Model.csproj", "{72AA9CB0-C0CE-4518-A074-89608EB0DE20}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{672743A8-E803-4075-B622-71FDE6AA0016}"
 	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+		Base-pipeline.yml = Base-pipeline.yml
+		Develop-PR.yml = Develop-PR.yml
+		Develop-Publish.yml = Develop-Publish.yml
+		Master-PR.yml = Master-PR.yml
+		Master-Publish.yml = Master-Publish.yml
+		Publish-pipeline.yml = Publish-pipeline.yml
 		server.png = server.png
 	EndProjectSection
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Net.ArcanaStudio.NikoSDK.Shared", "Net.ArcanaStudio.NikoSDK.Shared\Net.ArcanaStudio.NikoSDK.Shared.shproj", "{81709577-1EB1-49EC-A793-F1E0915A4038}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Net.ArcanaStudio.NikoSDK.Shared\Net.ArcanaStudio.NikoSDK.Shared.projitems*{81709577-1eb1-49ec-a793-f1e0915a4038}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

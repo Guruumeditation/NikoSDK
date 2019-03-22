@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>81709577-1eb1-49ec-a793-f1e0915a4038</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Net.ArcanaStudio.NikoSDK.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IActions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBaseResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IEventItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ILocation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\Ilocations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\INikoResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ISystemInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Action.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ActionsImp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\BaseResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\EventImp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\EventItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\LocationsImp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\NikoResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SystemInfo.cs" />
+  </ItemGroup>
+</Project>

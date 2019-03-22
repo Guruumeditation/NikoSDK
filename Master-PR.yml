@@ -1,0 +1,12 @@
+# Pipeline for Master PR
+
+name: $(Date:yyyyMMdd)$(Rev:r)
+
+trigger:
+- develop
+
+jobs:
+- template: Base-Job.yml
+  parameters:
+    Version: $(Version-Master)
+    NugetVersion : NugetVersion-Master
