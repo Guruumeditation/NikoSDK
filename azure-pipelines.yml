@@ -1,0 +1,40 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+name: $(Date:yyyyMMdd)$(Rev:r)
+
+trigger:
+- develop
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- script: dotnet restore
+  displayName: 'dotnet restore'
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
+
+- task: NuGetCommand@2
+  displayName: 'NuGet pack'
+  inputs:
+    command: pack
+    versioningScheme: byEnvVar
+    versionEnvVar:  NugetBetaVersion
+    packagesToPack: '$(build.binariesdirectory)/$(BuildConfiguration)/NikoSDK.csproj'
+    includeSymbols: true
+    
+- task: NuGetCommand@2
+  displayName: 'NuGet push'
+  inputs:
+    command: push
+    nuGetFeedType: external
+    publishFeedCredentials: 'Nuget Niko'
+    versioningScheme: byEnvVar
+    versionEnvVar: NugetBetaVersion
+    displayName: 'public nuget'
