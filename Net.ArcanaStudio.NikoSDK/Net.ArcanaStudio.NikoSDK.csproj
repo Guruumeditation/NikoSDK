@@ -12,7 +12,7 @@
     <PackageIconUrl>https://github.com/Guruumeditation/NikoSDK/blob/master/server.png?raw=true</PackageIconUrl>
     <RepositoryUrl>https://github.com/Guruumeditation/NikoSDK</RepositoryUrl>
     <PackageTags>Niko, Home Control</PackageTags>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RootNamespace>Net.ArcanaStudio.NikoSDK</RootNamespace>
     <PackageId>Net.ArcanaStudio.NikoSDK</PackageId>
   </PropertyGroup>
@@ -21,8 +21,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\NikoSDK.Model\NikoSDK.Model.csproj" />
-  </ItemGroup>
+  <Import Project="..\Net.ArcanaStudio.NikoSDK.Shared\Net.ArcanaStudio.NikoSDK.Shared.projitems" Label="Shared" />
 
 </Project>
