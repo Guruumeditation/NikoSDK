@@ -27,7 +27,7 @@ steps:
     configuration: 'release'
     versioningScheme: byEnvVar
     versionEnvVar:  NugetBetaVersion
-    packagesToPack: '**/Net.ArcanaStudio.NikoSDK*.csproj' 
+    packagesToPack: '**/*.csproj' 
 
 
 # Push NuGet packages.
