@@ -27,7 +27,7 @@ steps:
     versioningScheme: byEnvVar
     versionEnvVar:  NugetBetaVersion
     includeSymbols: true
-    packagesToPack: '**/*.csproj' 
+    packagesToPack: '**/NikoSDK*.csproj' 
     
 - task: NuGetCommand@2
   displayName: 'NuGet push'
