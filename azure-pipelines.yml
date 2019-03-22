@@ -13,7 +13,6 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  versionEnvVar: $(NugetBetaVersion)
 
 steps:
 - script: dotnet restore
@@ -26,5 +25,6 @@ steps:
   inputs:
     command: pack
     versioningScheme: byEnvVar
+    versionEnvVar:  $(NugetBetaVersion)
     packagesToPack: '$(build.binariesdirectory)/$(BuildConfiguration)/NikoSDK.csproj'
     includeSymbols: true
