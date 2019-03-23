@@ -17,4 +17,15 @@
     <PackageId>Net.ArcanaStudio.NikoSDK.Model</PackageId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Interfaces\**" />
+    <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="Interfaces\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Interfaces\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
+
+  <Import Project="..\Net.ArcanaStudio.NikoSDK.Shared\Net.ArcanaStudio.NikoSDK.Shared.projitems" Label="Shared" />
+
 </Project>

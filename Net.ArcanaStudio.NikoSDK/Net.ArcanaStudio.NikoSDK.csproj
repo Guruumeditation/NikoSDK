@@ -21,8 +21,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Net.ArcanaStudio.NikoSDK.Model\Net.ArcanaStudio.NikoSDK.Model.csproj" />
-  </ItemGroup>
+  <Import Project="..\Net.ArcanaStudio.NikoSDK.Shared\Net.ArcanaStudio.NikoSDK.Shared.projitems" Label="Shared" />
 
 </Project>
