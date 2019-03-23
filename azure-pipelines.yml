@@ -17,6 +17,8 @@ variables:
 steps:
 - script: dotnet restore
   displayName: 'dotnet restore'
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
 
 
 # Pack NuGet packages.
@@ -24,6 +26,7 @@ steps:
   inputs:
     command: 'pack'
     configuration: 'release'
+    nobuild: true
     versioningScheme: byEnvVar
     versionEnvVar:  NugetBetaVersion
     packagesToPack: '**/*.csproj' 
