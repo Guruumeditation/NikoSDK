@@ -17,7 +17,7 @@ variables:
 steps:
 - script: dotnet restore
   displayName: 'dotnet restore'
-- script: dotnet build --configuration $(buildConfiguration)
+- script: dotnet build --configuration $(buildConfiguration) --version-suffix '-beta'
   displayName: 'dotnet build $(buildConfiguration)'
 
 
