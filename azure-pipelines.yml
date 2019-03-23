@@ -29,6 +29,7 @@ steps:
     versioningScheme: byEnvVar
     versionEnvVar:  NugetBetaVersion
     packagesToPack: '**/*.csproj' 
+    verbosityPack: Normal
 
 
 # Push NuGet packages.
