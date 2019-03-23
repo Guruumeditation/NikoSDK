@@ -17,8 +17,7 @@ variables:
 steps:
 - script: dotnet restore
   displayName: 'dotnet restore'
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+
 
 # Pack NuGet packages.
 - task: DotNetCoreCLI@2
