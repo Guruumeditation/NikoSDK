@@ -26,6 +26,7 @@ steps:
   inputs:
     command: 'pack'
     configuration: 'release'
+    nobuild: true
     versioningScheme: byEnvVar
     versionEnvVar:  NugetBetaVersion
     packagesToPack: '**/*.csproj' 
