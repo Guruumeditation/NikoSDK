@@ -12,7 +12,7 @@
     <PackageIconUrl>https://github.com/Guruumeditation/NikoSDK/blob/master/server.png?raw=true</PackageIconUrl>
     <RepositoryUrl>https://github.com/Guruumeditation/NikoSDK</RepositoryUrl>
     <PackageTags>Niko, Home Control</PackageTags>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RootNamespace>Net.ArcanaStudio.NikoSDK</RootNamespace>
     <PackageId>Net.ArcanaStudio.NikoSDK</PackageId>
   </PropertyGroup>
