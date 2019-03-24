@@ -15,11 +15,25 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
+  displayName: 'Prepare analysis on SonarCloud'
+  inputs:
+    SonarCloud: 'Sonarcloud ColorPickerVSTS'
+    organization: 'guruumeditation-github'
+    projectKey: Guruumeditation_NikoSDK
+    projectName: NikoSDK
+
 - script: dotnet restore
   displayName: 'dotnet restore'
+
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
+- task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
+  displayName: 'Run Code Analysis'
+
+- task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
+  displayName: 'Publish Quality Gate Result'
 
 # Pack NuGet packages.
 - task: DotNetCoreCLI@2
