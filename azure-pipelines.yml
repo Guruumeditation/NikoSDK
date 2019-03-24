@@ -37,4 +37,4 @@ steps:
   inputs:
     command: 'push'
     nuGetFeedType: external
-    publishFeedCredentials: Test2
+    publishFeedCredentials: NikoSDKNuget
