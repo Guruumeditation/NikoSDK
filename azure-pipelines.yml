@@ -38,4 +38,4 @@ steps:
   inputs:
     command: custom
     custom: nuget
-    arguments: push $(Build.ArtifactStagingDirectory)/packages/*.nupkg --api-key $(nuget-apikey) -n
+    arguments: push $(Build.ArtifactStagingDirectory)/packages/*.nupkg --api-key $(nuget-apikey) --no-symbols true
