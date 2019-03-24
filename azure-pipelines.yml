@@ -32,9 +32,9 @@ steps:
     verbosityPack: Normal
 
 
-# Push NuGet packages.
 - task: DotNetCoreCLI@2
+  displayName: dotnet nuget push
   inputs:
-    command: 'push'
-    nuGetFeedType: external
-    publishFeedCredentials: NikoSDKNuget
+    command: custom
+    custom: nuget
+    arguments: push $(Build.ArtifactStagingDirectory)/packages/*.nupkg --source https://api.nuget.org/v3/index.json --no-service-endpoint --api-key $(myget-apikey)
