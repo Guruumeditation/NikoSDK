@@ -26,9 +26,8 @@ steps:
 #    projectKey: Guruumeditation_NikoSDK
 #    projectName: NikoSDK
 
-- script: |
-    dotnet tool install --global dotnet-sonarscanner
-    displayName: 'Install SonarCloud'
+- script: dotnet tool install --global dotnet-sonarscanner
+  displayName: 'Install SonarCloud'
 
 - script: dotnet restore
   displayName: 'dotnet restore'
