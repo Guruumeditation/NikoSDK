@@ -44,7 +44,6 @@ steps:
     verbosityPack: Normal
     packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
 
-
 - task: DotNetCoreCLI@2
   displayName: dotnet nuget push
   inputs:
