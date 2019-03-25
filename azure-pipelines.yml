@@ -42,7 +42,7 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
-- task: dotnet sonarscanner end
+- script: dotnet sonarscanner end
   displayName: 'Run Code Analysis'
 
 #- task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
