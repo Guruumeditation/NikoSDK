@@ -12,32 +12,41 @@ pool:
   name: Hosted VS2017
   demands:
   - MSBuild
-  - Xamarin.Android
   - java
 
 variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
-  displayName: 'Prepare analysis on SonarCloud'
-  inputs:
-    SonarCloud: 'SonarCloud-NikoSDK'
-    organization: 'guruumeditation-github'
-    projectKey: Guruumeditation_NikoSDK
-    projectName: NikoSDK
+#- task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
+#  displayName: 'Prepare analysis on SonarCloud'
+#  inputs:
+#    SonarCloud: 'SonarCloud-NikoSDK'
+#    organization: 'guruumeditation-github'
+#    projectKey: Guruumeditation_NikoSDK
+#    projectName: NikoSDK
+
+- script: |
+    dotnet tool install --global dotnet-sonarscanner
 
 - script: dotnet restore
   displayName: 'dotnet restore'
 
+#- script: |
+#    %USERPROFILE%\.dotnet\tools\dotnet-sonarscanner begin /k:"Guruumeditation_NikoSDK" /d:sonar.organization="guruumeditation-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$(SONAR_TOKEN)" /v:"$(buildId)" /d:sonar.cs.opencover.reportsPaths="**\coverage.opencover.xml"
+
+- script: dotnet sonarscanner begin /k:"Guruumeditation_NikoSDK"
+  displayName: 'Prepare analysis on SonarCloud'
+
+
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
-- task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
+- task: dotnet sonarscanner end
   displayName: 'Run Code Analysis'
 
-- task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
-  displayName: 'Publish Quality Gate Result'
+#- task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
+#  displayName: 'Publish Quality Gate Result'
 
 # Pack NuGet packages.
 - task: DotNetCoreCLI@2
