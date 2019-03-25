@@ -36,7 +36,7 @@ steps:
 #- script: |
 #    %USERPROFILE%\.dotnet\tools\dotnet-sonarscanner begin /k:"Guruumeditation_NikoSDK" /d:sonar.organization="guruumeditation-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$(SONAR_TOKEN)" /v:"$(buildId)" /d:sonar.cs.opencover.reportsPaths="**\coverage.opencover.xml"
 
-- script: dotnet sonarscanner begin /k:"Guruumeditation_NikoSDK" /d:sonar.host.url="https://sonarcloud.io"
+- script: dotnet sonarscanner begin /k:"Guruumeditation_NikoSDK" /d:sonar.host.url="https://sonarcloud.io" 
   displayName: 'Prepare analysis on SonarCloud'
 
 
