@@ -6,7 +6,7 @@ trigger:
 - develop
 
 jobs:
-- template: Base-pipeline.yml
+- template: Base-job.yml
   parameters:
     Version: $(Version-Job)
     NugetVersion : NugetVersion-Job
