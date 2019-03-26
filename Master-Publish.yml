@@ -1,0 +1,16 @@
+# Pipeline for Master CI
+
+name: $(Date:yyyyMMdd)$(Rev:r)
+
+trigger:
+- master
+
+pr: none
+
+jobs:
+- template: Base-Job.yml
+  parameters:
+    Version: $(Version-Master)
+    NugetVersion : NugetVersion-Master
+
+- template: Publish-Job.yml

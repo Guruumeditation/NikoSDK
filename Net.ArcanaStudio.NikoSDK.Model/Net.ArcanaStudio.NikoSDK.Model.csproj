@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Net.ArcanaStudio.NikoSDK</RootNamespace>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.8</Version>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Version>1.0</Version>
     <Authors>Olivier Matis</Authors>
     <Company>Arcana Studio</Company>
     <Description>Models library for Niko SDK</Description>
@@ -16,5 +16,16 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageId>Net.ArcanaStudio.NikoSDK.Model</PackageId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Interfaces\**" />
+    <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="Interfaces\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Interfaces\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
+
+  <Import Project="..\Net.ArcanaStudio.NikoSDK.Shared\Net.ArcanaStudio.NikoSDK.Shared.projitems" Label="Shared" />
 
 </Project>

@@ -1,0 +1,16 @@
+# Pipeline for Develop CI
+
+name: $(Date:yyyyMMdd)$(Rev:r)
+
+trigger:
+- develop
+
+pr: none
+
+jobs:
+- template: Base-Job.yml
+  parameters:
+    Version: $(Version-Develop)
+    NugetVersion : NugetVersion-Develop
+
+- template: Publish-Job.yml

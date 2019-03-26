@@ -1,0 +1,13 @@
+# Pipeline for Develop PR
+
+name: $(Date:yyyyMMdd)$(Rev:r)
+
+trigger: none
+pr:
+- develop
+
+jobs:
+- template: Base-Job.yml
+  parameters:
+    Version: $(Version-Develop)
+    NugetVersion : NugetVersion-Develop
