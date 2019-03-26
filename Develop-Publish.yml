@@ -11,5 +11,4 @@ jobs:
     Version: $(Version-Job)
     NugetVersion : NugetVersion-Job
 
-jobs:
 - template: Publish-Job.yml
