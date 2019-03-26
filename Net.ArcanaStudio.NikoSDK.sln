@@ -9,13 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net.ArcanaStudio.NikoSDK.Mo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{672743A8-E803-4075-B622-71FDE6AA0016}"
 	ProjectSection(SolutionItems) = preProject
-		azure-pipelines.yml = azure-pipelines.yml
-		Base-pipeline.yml = Base-pipeline.yml
+		Base-Job.yml = Base-Job.yml
 		Develop-PR.yml = Develop-PR.yml
 		Develop-Publish.yml = Develop-Publish.yml
 		Master-PR.yml = Master-PR.yml
 		Master-Publish.yml = Master-Publish.yml
-		Publish-pipeline.yml = Publish-pipeline.yml
+		Publish-Job.yml = Publish-Job.yml
 		server.png = server.png
 	EndProjectSection
 EndProject
