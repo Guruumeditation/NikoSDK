@@ -12,8 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Base-Steps.yml = Base-Steps.yml
 		Develop-PR.yml = Develop-PR.yml
 		Develop-Publish.yml = Develop-Publish.yml
+		LICENSE = LICENSE
 		Master-PR.yml = Master-PR.yml
 		Master-Publish.yml = Master-Publish.yml
+		README.md = README.md
 		server.png = server.png
 	EndProjectSection
 EndProject
