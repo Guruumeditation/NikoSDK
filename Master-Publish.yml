@@ -3,7 +3,12 @@
 name: $(Date:yyyyMMdd)$(Rev:r)
 
 trigger:
-- master
+  branches:
+    include:
+    - master
+  path:
+    exclude:
+    - README.md
 pr: none
 
 pool:
