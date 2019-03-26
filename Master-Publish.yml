@@ -7,10 +7,12 @@ trigger:
 
 pr: none
 
-jobs:
-- template: Base-Job.yml
+pool:
+  name: Hosted VS2017
+
+steps:
+- template: Base-Steps.yml
   parameters:
     Version: $(Version-Master)
     NugetVersion : NugetVersion-Master
-
-- template: Publish-Job.yml
+    Publish: 'true'

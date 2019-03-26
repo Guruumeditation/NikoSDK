@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{672743A8-E803-4075-B622-71FDE6AA0016}"
 	ProjectSection(SolutionItems) = preProject
 		Base-Job.yml = Base-Job.yml
+		Base-Steps.yml = Base-Steps.yml
 		Develop-PR.yml = Develop-PR.yml
 		Develop-Publish.yml = Develop-Publish.yml
 		Master-PR.yml = Master-PR.yml

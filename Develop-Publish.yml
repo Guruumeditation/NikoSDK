@@ -4,13 +4,14 @@ name: $(Date:yyyyMMdd)$(Rev:r)
 
 trigger:
 - develop
-
 pr: none
 
-jobs:
-- template: Base-Job.yml
+pool:
+  name: Hosted VS2017
+
+steps:
+- template: Base-Steps.yml
   parameters:
     Version: $(Version-Develop)
     NugetVersion : NugetVersion-Develop
-
-- template: Publish-Job.yml
+    Publish: 'true'

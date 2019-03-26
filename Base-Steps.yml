@@ -1,15 +1,7 @@
-jobs:
-- job: BaseBuild
+parameters:
+  Publish: 'false'
 
- # name: $(Date:yyyyMMdd)$(Rev:r)
-
-  pool:
-    name: Hosted VS2017
-
-  variables:
-    buildConfiguration: 'Release'
-
-  steps:
+steps:
 
   - script: dotnet tool install --global dotnet-sonarscanner
     displayName: 'Install SonarCloud'
@@ -34,3 +26,11 @@ jobs:
       packagesToPack: '**/*.csproj' 
       verbosityPack: Normal
       packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
+  
+  - ${{ if eq(parameters.Publish, 'true')}}:
+    - task: DotNetCoreCLI@2
+      displayName: dotnet nuget push
+      inputs:
+        command: custom
+        custom: nuget
+        arguments: push $(Build.ArtifactStagingDirectory)\packages\*.nupkg  --source https://api.nuget.org/v3/index.json --api-key $(Nuget-NikoSDK) --no-symbols true
