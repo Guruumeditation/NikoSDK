@@ -6,7 +6,7 @@ trigger:
   branches:
     include:
     - develop
-  path:
+  paths:
     exclude:
     - README.md
 pr: none
