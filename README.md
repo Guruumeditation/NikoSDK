@@ -26,6 +26,24 @@ Or pass the IP of the NHC :
 ```
 var client = new NikoClient("168.192.1.11");
 ```
+### Start client
+
+
+To start the client, use :
+
+```
+client.StartClient();
+```
+
+### Stop client
+
+
+To stop the client, use :
+
+```
+client.StopClient();
+```
+
 
 ### Locations
 
