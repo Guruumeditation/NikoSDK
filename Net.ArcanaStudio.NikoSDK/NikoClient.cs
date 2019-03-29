@@ -180,8 +180,21 @@ namespace Net.ArcanaStudio.NikoSDK
 
             observer = _observableResponses.Subscribe(new ActionObserver<string>(s =>
             {
-                tcs.SetResult(Deserialize<T>(s, converters));
-                observer.Dispose();
+                try
+                {
+                    //sometimes there is \n\r received at the end of string
+                    var i = s.LastIndexOf('}');
+                    s = s.Substring(0, i + 1);
+                    tcs.TrySetResult(Deserialize<T>(s, converters));
+                }
+                catch (Exception e)
+                {
+                    tcs.TrySetException(e);
+                }
+                finally
+                {
+                    observer.Dispose();
+                }
             }, e =>
             {
                 tcs.SetException(e);
