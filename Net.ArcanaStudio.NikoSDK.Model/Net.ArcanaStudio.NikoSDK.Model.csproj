@@ -15,7 +15,11 @@
     <PackageIconUrl>https://github.com/Guruumeditation/NikoSDK/blob/master/server.png?raw=true</PackageIconUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageId>Net.ArcanaStudio.NikoSDK.Model</PackageId>
-    <PackageReleaseNotes>1.0.1:
+    <PackageReleaseNotes>
+1.0.2
+- FIXED : Case when multiple messages received same time
+
+1.0.1:
 - FIXED : bug when sometimes NHC send extra characters at the end of json
 
 1.0

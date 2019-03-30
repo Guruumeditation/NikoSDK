@@ -15,6 +15,15 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RootNamespace>Net.ArcanaStudio.NikoSDK</RootNamespace>
     <PackageId>Net.ArcanaStudio.NikoSDK</PackageId>
+    <PackageReleaseNotes>
+1.0.2
+- FIXED : Case when multiple messages received same time
+
+1.0.1:
+- FIXED : bug when sometimes NHC send extra characters at the end of json
+
+1.0
+- Initial release</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

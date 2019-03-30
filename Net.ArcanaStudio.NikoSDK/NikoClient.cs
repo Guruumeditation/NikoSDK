@@ -182,10 +182,11 @@ namespace Net.ArcanaStudio.NikoSDK
             {
                 try
                 {
-                    //sometimes there is \n\r received at the end of string
-                    var i = s.LastIndexOf('}');
-                    s = s.Substring(0, i + 1);
-                    tcs.TrySetResult(Deserialize<T>(s, converters));
+                    //Check if it is response from same command
+                    if (s.IndexOf(command.CommandName,StringComparison.OrdinalIgnoreCase)>0)
+                    {
+                        tcs.TrySetResult(Deserialize<T>(s, converters));
+                    }
                 }
                 catch (Exception e)
                 {
@@ -250,10 +251,13 @@ namespace Net.ArcanaStudio.NikoSDK
                 if (buffer[index - 2] == '\r' || buffer[index - 1] == '\n')
                 {
                     var datastring = Encoding.ASCII.GetString(buffer, 0, index);
-                    if (datastring.StartsWith("{\"event\""))
-                        _observableEvents.Add(datastring);
-                    else
-                        _observableResponses.Add(datastring);
+                    foreach (var s in datastring.Split(new[] {"\n\r"},StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        if (s.StartsWith("{\"event\""))
+                            _observableEvents.Add(s);
+                        else
+                            _observableResponses.Add(s);
+                    }
                     index = 0;
 #if DEBUG
                     Debug.WriteLine("Message received : " + datastring);
