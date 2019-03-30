@@ -251,7 +251,7 @@ namespace Net.ArcanaStudio.NikoSDK
                 if (buffer[index - 2] == '\r' || buffer[index - 1] == '\n')
                 {
                     var datastring = Encoding.ASCII.GetString(buffer, 0, index);
-                    foreach (var s in datastring.Split(new[] {"\n\r"},StringSplitOptions.RemoveEmptyEntries))
+                    foreach (var s in datastring.Split(new[] {"\r\n"},StringSplitOptions.RemoveEmptyEntries))
                     {
                         if (s.StartsWith("{\"event\""))
                             _observableEvents.Add(s);

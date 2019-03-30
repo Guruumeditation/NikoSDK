@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Net.ArcanaStudio.NikoSDK</RootNamespace>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Authors>Olivier Matis</Authors>
     <Company>Arcana Studio</Company>
     <Description>Models library for Niko SDK</Description>
@@ -15,8 +15,7 @@
     <PackageIconUrl>https://github.com/Guruumeditation/NikoSDK/blob/master/server.png?raw=true</PackageIconUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageId>Net.ArcanaStudio.NikoSDK.Model</PackageId>
-    <PackageReleaseNotes>
-1.0.2
+    <PackageReleaseNotes>1.0.2
 - FIXED : Case when multiple messages received same time
 
 1.0.1:
