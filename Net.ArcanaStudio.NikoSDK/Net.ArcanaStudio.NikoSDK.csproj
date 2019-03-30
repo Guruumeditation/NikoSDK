@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Authors>Olivier Matis</Authors>
     <Company>Arcana Studio</Company>
     <Description>Niko Home Control SDK for .NET Standard</Description>
@@ -15,8 +15,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RootNamespace>Net.ArcanaStudio.NikoSDK</RootNamespace>
     <PackageId>Net.ArcanaStudio.NikoSDK</PackageId>
-    <PackageReleaseNotes>
-1.0.2
+    <PackageReleaseNotes>1.0.2
 - FIXED : Case when multiple messages received same time
 
 1.0.1:
