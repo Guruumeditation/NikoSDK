@@ -180,21 +180,21 @@ namespace Net.ArcanaStudio.NikoSDK
 
             observer = _observableResponses.Subscribe(new ActionObserver<string>(s =>
             {
-                try
+                //Check if it is response from same command
+                if (s.IndexOf(command.CommandName, StringComparison.OrdinalIgnoreCase) > 0)
                 {
-                    //Check if it is response from same command
-                    if (s.IndexOf(command.CommandName,StringComparison.OrdinalIgnoreCase)>0)
+                    try
                     {
-                        tcs.TrySetResult(Deserialize<T>(s, converters));
+                            tcs.TrySetResult(Deserialize<T>(s, converters));
                     }
-                }
-                catch (Exception e)
-                {
-                    tcs.TrySetException(e);
-                }
-                finally
-                {
-                    observer.Dispose();
+                    catch (Exception e)
+                    {
+                        tcs.TrySetException(e);
+                    }
+                    finally
+                    {
+                        observer.Dispose();
+                    }
                 }
             }, e =>
             {
