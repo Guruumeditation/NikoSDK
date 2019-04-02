@@ -12,9 +12,9 @@ namespace Net.ArcanaStudio.NikoSDK.Models
         public string Name { get; }
         [DataMember]
         public int Type { get;}
-        [DataMember]
-        public int Location { get;}
-        [DataMember]
+        [DataMember(Name = "Location")]
+        public int LocationId { get;}
+        [DataMember(Name = "value1")]
         public int Value { get; }
 
         public Action(int id, string name, int type, int location, int value)
@@ -22,7 +22,7 @@ namespace Net.ArcanaStudio.NikoSDK.Models
             Id = id;
             Name = name;
             Type = type;
-            Location = location;
+            LocationId = location;
             Value = value;
         }
     }
