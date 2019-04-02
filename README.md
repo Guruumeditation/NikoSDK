@@ -103,6 +103,21 @@ It wasn't tested on NHC II
 As I don't have alarm or energy modules, there is not command for it.
 If someone can give the their json format, I will implement it.
 
+## History
+
+1.0.3
+- FIXED : Values sometimes not well returned from server
+- CHANGE : Action's Location property renamed to LocationId
+
+1.0.2
+- FIXED : Case when multiple messages received same time
+
+1.0.1:
+- FIXED : bug when sometimes NHC send extra characters at the end of json
+
+1.0
+- Initial release
+
 ## License
 
 ```

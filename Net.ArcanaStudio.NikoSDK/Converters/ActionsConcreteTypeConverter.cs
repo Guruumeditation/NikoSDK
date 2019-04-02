@@ -8,7 +8,7 @@ using Action = Net.ArcanaStudio.NikoSDK.Models.Action;
 
 namespace Net.ArcanaStudio.NikoSDK.Converters
 {
-    public class ActionConcreteTypeConverter : ConcreteTypeConverter<IActions, ActionsImp>
+    internal class ActionsConcreteTypeConverter : ConcreteTypeConverter<IActions, ActionsImp>
     {
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
@@ -19,7 +19,12 @@ namespace Net.ArcanaStudio.NikoSDK.Converters
             try
             {
                 var jarray = JArray.Load(reader);
-                actions = new ActionsImp(jarray.ToObject<List<Action>>().AsReadOnly());
+                var actionslist = new List<Action>();
+                foreach (var actionraw in jarray)
+                {
+                    actionslist.Add(JsonConvert.DeserializeObject<Action>(actionraw.ToString(), new ActionTypeConverter()));
+                }
+                actions = new ActionsImp(actionslist);
             }
             catch (Exception)
             {
