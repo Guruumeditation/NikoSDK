@@ -144,7 +144,7 @@ namespace Net.ArcanaStudio.NikoSDK
         public Task<INikoResponse<IActions>> GetActions()
         {
             var tcs = new TaskCompletionSource<INikoResponse<IActions>>();
-            SendCommand<IActions>(new GetActionsCommand(), new ActionConcreteTypeConverter()).ContinueWith(t =>
+            SendCommand<IActions>(new GetActionsCommand(), new ActionsConcreteTypeConverter()).ContinueWith(t =>
             {
                 if (t.IsFaulted)
                     tcs.TrySetException(t.Exception.InnerException);

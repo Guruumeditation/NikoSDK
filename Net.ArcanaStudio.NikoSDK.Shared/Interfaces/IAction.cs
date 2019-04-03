@@ -7,7 +7,7 @@
 
         int Type { get; }
 
-        int Location { get; }
+        int LocationId { get; }
 
         int Value { get; }
     }
