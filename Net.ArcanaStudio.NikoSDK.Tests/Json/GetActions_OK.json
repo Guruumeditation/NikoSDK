@@ -1,0 +1,1 @@
+{ "cmd": "listactions", "data": [ { "id": 1, "name": "Action1", "type": 1, "location": 2, "value1": 0 }, { "id": 2, "name": "Action2", "type": 0, "location": 2, "value1": 100 }, { "id": 3, "name": "Action3", "type": 0, "location": 1, "value1": 0 }, { "id": 4, "name": "Action4", "type": 0, "location": 27, "value1": 100 } ] }

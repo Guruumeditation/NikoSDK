@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Net.ArcanaStudio.NikoSDK</RootNamespace>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>1.0.3</Version>
+    <Version>1.1.0</Version>
     <Authors>Olivier Matis</Authors>
     <Company>Arcana Studio</Company>
     <Description>Models library for Niko SDK</Description>
