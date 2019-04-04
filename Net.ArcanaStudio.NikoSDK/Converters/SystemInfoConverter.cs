@@ -1,33 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using Net.ArcanaStudio.NikoSDK.Models;
-using Newtonsoft.Json;
+﻿using Net.ArcanaStudio.NikoSDK.Models;
+using Newtonsoft.Json.Linq;
 
 namespace Net.ArcanaStudio.NikoSDK.Converters
 {
-    public class SystemInfoConverter : JsonConverter
+    internal class SystemInfoConverter : BaseNikoResponseConverter<SystemInfo>
     {
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override SystemInfo DeserializeData(JToken data)
         {
-            throw new NotImplementedException();
-        }
-
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        {
-            var dict = new Dictionary<string, string>();
-            serializer.Populate(reader, dict);
-
-            if (dict.ContainsKey("error"))
-            {
-                 return new SystemInfo(int.Parse(dict["error"]));
-            }
-            
-            return new SystemInfo(dict["swversion"],dict["api"],dict["time"]?.ParseNikoDateTimeString(),dict["language"],dict["currency"],dict["units"],dict["DST"],dict["TZ"],dict["lastenergyerase"]?.ParseNikoDateTimeString(),dict["lastconfig"]?.ParseNikoDateTimeString());
-        }
-
-        public override bool CanConvert(Type objectType)
-        {
-            return objectType == typeof(SystemInfo);
+            var si = new SystemInfo(data["swversion"].ToString(), data["api"].ToString(), data["time"]?.ToString().ParseNikoDateTimeString(), data["language"].ToString(), data["currency"].ToString(), data["units"].ToString(), data["DST"].ToString(), data["TZ"].ToString(), data["lastenergyerase"]?.ToString().ParseNikoDateTimeString(), data["lastconfig"]?.ToString().ParseNikoDateTimeString());
+            return si;
         }
     }
 }

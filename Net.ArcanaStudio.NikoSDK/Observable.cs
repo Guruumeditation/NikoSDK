@@ -38,7 +38,7 @@ namespace Net.ArcanaStudio.NikoSDK
         }
 
 #pragma warning disable 693
-        private class Unsubscriber<T> : IDisposable
+        private sealed class Unsubscriber<T> : IDisposable
 #pragma warning restore 693
         {
             private readonly List<IObserver<T>> _observers;

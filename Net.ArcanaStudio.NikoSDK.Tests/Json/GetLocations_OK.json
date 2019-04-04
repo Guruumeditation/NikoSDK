@@ -1,0 +1,1 @@
+{ "cmd": "listlocations", "data": [ { "id": 0, "name": "" }, {"id": 1,"name": "Location1"}, {"id": 2,"name": "Location2"} ] }

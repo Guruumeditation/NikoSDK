@@ -2,7 +2,7 @@
 
 namespace Net.ArcanaStudio.NikoSDK.Interfaces
 {
-    public interface ISystemInfo : IBaseResponse
+    public interface ISystemInfo
     {
         string SwVersion { get; }
         string Api { get; }

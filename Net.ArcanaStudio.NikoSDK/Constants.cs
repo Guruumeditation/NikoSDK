@@ -1,4 +1,8 @@
-﻿namespace Net.ArcanaStudio.NikoSDK
+﻿using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Net.ArcanaStudio.NikoSDK.Tests")]
+
+namespace Net.ArcanaStudio.NikoSDK
 {
     internal static class Constants
     {
