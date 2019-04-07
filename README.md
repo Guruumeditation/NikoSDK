@@ -105,6 +105,11 @@ If someone can give the their json format, I will implement it.
 
 ## History
 
+1.1.0
+-Added : Unit tests
+- FIXED : Bugs
+- CHANGE : Refactoring
+
 1.0.3
 - FIXED : Values sometimes not well returned from server
 - CHANGE : Action's Location property renamed to LocationId
