@@ -13,6 +13,7 @@ using Net.ArcanaStudio.NikoSDK.Interfaces;
 using Net.ArcanaStudio.NikoSDK.Model;
 using Net.ArcanaStudio.NikoSDK.Model.Commands;
 using Net.ArcanaStudio.NikoSDK.Models;
+using Net.ArcanaStudio.NikoSDK.Shared.Exceptions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -42,7 +43,7 @@ namespace Net.ArcanaStudio.NikoSDK
 
              
             if (!interfaces.Any())
-                throw new ApplicationException("No valid network");
+                throw new NikoClientException("No valid network");
 
             var s = new UdpClient(localport);
             var sendbuf = Encoding.ASCII.GetBytes("D");

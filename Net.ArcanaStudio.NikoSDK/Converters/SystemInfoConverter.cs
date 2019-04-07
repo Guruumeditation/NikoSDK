@@ -1,4 +1,5 @@
-﻿using Net.ArcanaStudio.NikoSDK.Models;
+﻿using System.Collections.Generic;
+using Net.ArcanaStudio.NikoSDK.Models;
 using Newtonsoft.Json.Linq;
 
 namespace Net.ArcanaStudio.NikoSDK.Converters
@@ -7,7 +8,7 @@ namespace Net.ArcanaStudio.NikoSDK.Converters
     {
         public override SystemInfo DeserializeData(JToken data)
         {
-            var si = new SystemInfo(data["swversion"].ToString(), data["api"].ToString(), data["time"]?.ToString().ParseNikoDateTimeString(), data["language"].ToString(), data["currency"].ToString(), data["units"].ToString(), data["DST"].ToString(), data["TZ"].ToString(), data["lastenergyerase"]?.ToString().ParseNikoDateTimeString(), data["lastconfig"]?.ToString().ParseNikoDateTimeString());
+            var si = new SystemInfo(data.ToObject<Dictionary<string,object>>());
             return si;
         }
     }

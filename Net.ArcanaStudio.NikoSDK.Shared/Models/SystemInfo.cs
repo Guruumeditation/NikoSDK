@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Net.ArcanaStudio.NikoSDK.Interfaces;
 
@@ -28,18 +29,18 @@ namespace Net.ArcanaStudio.NikoSDK.Models
         [DataMember]
         public DateTime? LastConfig { get; }
 
-        public SystemInfo(string sw_version, string api, DateTime? date, string language, string currency, string units, string dst, string tz, DateTime? last_energy_erase, DateTime? last_config)
+        public SystemInfo(IDictionary<string, object> token)
         {
-            SwVersion = sw_version;
-            Api = api;
-            Date = date;
-            Language = language;
-            Currency = currency;
-            Units = units;
-            Dst = dst;
-            Tz = tz;
-            LastEnergyErase = last_energy_erase;
-            LastConfig = last_config;
+            SwVersion = token["swversion"].ToString();
+            Api = token["api"].ToString();
+            Date = token["time"]?.ToString().ParseNikoDateTimeString();
+            Language = token["language"].ToString();
+            Currency = token["currency"].ToString();
+            Units = token["units"].ToString();
+            Dst = token["DST"].ToString();
+            Tz = token["TZ"].ToString();
+            LastEnergyErase = token["lastenergyerase"]?.ToString().ParseNikoDateTimeString();
+            LastConfig = token["lastconfig"]?.ToString().ParseNikoDateTimeString();
         }
 
         #region IEquality

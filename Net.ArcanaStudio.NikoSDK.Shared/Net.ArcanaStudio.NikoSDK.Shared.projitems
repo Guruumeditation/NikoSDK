@@ -9,6 +9,8 @@
     <Import_RootNamespace>Net.ArcanaStudio.NikoSDK.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\NikoClientException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBaseResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IEvent.cs" />
