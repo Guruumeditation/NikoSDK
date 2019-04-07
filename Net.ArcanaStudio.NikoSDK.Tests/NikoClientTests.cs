@@ -612,7 +612,7 @@ namespace Net.ArcanaStudio.NikoSDK.Tests
         {
             TaskCompletionSource<int> tcs = null;
             var tcpclientmock = new Mock<ITcpClient>();
-            var (jsonbytes, _) = GetJson<ErrorImp>(@"Json\Event.json", true, new EventConverter());
+            var (jsonbytes, jsonmodel) = GetJson<EventImp>(@"Json\Event.json", true, new EventConverter());
             // ReSharper disable once AccessToModifiedClosure
             tcpclientmock.SetupGet(c => c.IsConnected).Returns(() => false);
             tcpclientmock.Setup(c => c.ReadAsync(It.IsAny<byte[]>(), It.IsAny<int>(), It.IsAny<int>()))
@@ -628,7 +628,7 @@ namespace Net.ArcanaStudio.NikoSDK.Tests
             using (var minitoredclient = client.Monitor())
             {
                 tcs.SetResult(jsonbytes.Length);
-                minitoredclient.Should().Raise(nameof(NikoClient.OnValueChanged));
+                minitoredclient.Should().Raise(nameof(NikoClient.OnValueChanged)).WithArgs<IEvent>(d => d.Data.Count == jsonmodel.Data.Count);
                 await Task.Delay(1000);
             }
         }
