@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -306,7 +307,7 @@ namespace Net.ArcanaStudio.NikoSDK.Tests
             response.Command.Should().Be(response.Command);
             response.Data.Should().NotBeNull();
             response.Data.Should().HaveCount(responsemodel.Data.Count);
-            response.Data.Should().Equal(responsemodel.Data);
+            response.Data.Should().Equal(responsemodel.Data.Select(d => d));
         }
 
 

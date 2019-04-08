@@ -18,13 +18,13 @@ namespace Net.ArcanaStudio.NikoSDK.Models
         [DataMember]
         public int Value { get; }
 
-        public Action(int id, string name, int type, int locationid, int value)
+        public Action(int id, string name, int type, int location, int value1)
         {
             Id = id;
             Name = name;
             Type = type;
-            LocationId = locationid;
-            Value = value;
+            LocationId = location;
+            Value = value1;
         }
 
         #region Equality members
