@@ -9,22 +9,20 @@
     <Import_RootNamespace>Net.ArcanaStudio.NikoSDK.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\NikoClientException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IAction.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IActions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBaseResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IEventItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ILocation.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\Ilocations.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\INikoResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ISystemInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Action.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\ActionsImp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\BaseResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventImp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\LocationsImp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\NikoResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SystemInfo.cs" />
   </ItemGroup>

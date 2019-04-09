@@ -12,6 +12,9 @@ steps:
   - script: dotnet build --configuration $(buildConfiguration) -p:Version=${{ parameters.Version }}
     displayName: 'dotnet build $(buildConfiguration)'
 
+  - script: dotnet test -s UnitTests.runsettings --logger trx --collect "Code coverage
+    displayName: 'Running unit tests and coverage'
+
   - script: dotnet sonarscanner end /d:sonar.login=$(SonarCloud-NikoSDK)
     displayName: 'Run Code Analysis'
 

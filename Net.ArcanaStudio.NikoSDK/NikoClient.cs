@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -8,27 +10,29 @@ using System.Text;
 using System.Threading.Tasks;
 using Net.ArcanaStudio.NikoSDK.Converters;
 using Net.ArcanaStudio.NikoSDK.Interfaces;
+using Net.ArcanaStudio.NikoSDK.Model;
 using Net.ArcanaStudio.NikoSDK.Model.Commands;
 using Net.ArcanaStudio.NikoSDK.Models;
+using Net.ArcanaStudio.NikoSDK.Shared.Exceptions;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Net.ArcanaStudio.NikoSDK
 {
     public class NikoClient
     {
+        private readonly ITcpClient _tcpClient;
+        private readonly Observable<JObject> _observableResponses = new Observable<JObject>();
+        private bool _readFromSocket;
 
-        private readonly string _ipaddress;
-        private TcpClient _tcpClient;
-        private readonly Observable<string> _observableResponses;
-        private readonly Observable<string> _observableEvents;
-        private IDisposable _eventObserverSubscriber;
         public event EventHandler<IEvent> OnValueChanged;
 
-        public bool IsConnected => _tcpClient != null && _tcpClient.Connected;
+        public bool IsConnected => _tcpClient.IsConnected;
 
-        public IPAddress IpAddress => IPAddress.Parse(_ipaddress);
+        public IPAddress IpAddress => _tcpClient.IpAddress;
 
-        public static Task<NikoClient> AutoDetect()
+        [ExcludeFromCodeCoverage]
+        public static Task<NikoClient> AutoDetect(int localport = 1000)
         {
             var tcs = new TaskCompletionSource<NikoClient>();
 
@@ -39,12 +43,11 @@ namespace Net.ArcanaStudio.NikoSDK
 
              
             if (!interfaces.Any())
-                throw new Exception("No valid network");
+                throw new NikoClientException("No valid network");
 
-            var s = new UdpClient(1000);
+            var s = new UdpClient(localport);
             var sendbuf = Encoding.ASCII.GetBytes("D");
             var found = false;
-            var nikoip = string.Empty;
 
             var ep = new IPEndPoint(IPAddress.Broadcast, 10000);
 
@@ -53,16 +56,15 @@ namespace Net.ArcanaStudio.NikoSDK
             try
             {
                 IPEndPoint rep = null;
-                var received = s.Receive(ref rep);
-                nikoip = rep.Address.ToString();
+                s.Receive(ref rep);
+                var nikoip = rep.Address.ToString();
 
                 tcs.TrySetResult(new NikoClient(nikoip));
                 found = true;
-                //break;
             }
             catch (Exception)
             {
-
+                // ignored
             }
             finally
             {
@@ -80,12 +82,12 @@ namespace Net.ArcanaStudio.NikoSDK
             if (!IsValidIP(ipaddress))
                 throw new ArgumentException(nameof(ipaddress));
 
-            _ipaddress = ipaddress;
+            _tcpClient = new NikoTcpClient(ipaddress);
+        }
 
-            _observableResponses = new Observable<string>();
-            _observableEvents = new Observable<string>();
-
-            _eventObserverSubscriber = _observableEvents.Subscribe(new ActionObserver<string>(SendEvent, (s) => { }));
+        public NikoClient(ITcpClient client)
+        {
+            _tcpClient = client ?? throw new ArgumentNullException(nameof(client));
         }
 
         private bool IsValidIP(string ipaddress)
@@ -105,6 +107,47 @@ namespace Net.ArcanaStudio.NikoSDK
             SendCommand<SystemInfo>(new GetSystemInfoCommand(), new SystemInfoConverter()).ContinueWith(t =>
             {
                 if (t.IsFaulted)
+                {
+                    // ReSharper disable once AssignNullToNotNullAttribute
+                    // ReSharper disable once PossibleNullReferenceException
+                    tcs.TrySetException(t.Exception.InnerException);
+                }
+                else
+                    tcs.TrySetResult(t.Result);
+            });
+
+            return tcs.Task;
+        }
+
+        public Task<IBaseResponse> StartEvents()
+        {
+            var tcs = new TaskCompletionSource<IBaseResponse>();
+            SendCommand<ErrorImp>(new StartEventsCommand(), new BaseResponseConverter()).ContinueWith(t =>
+            {
+                if (t.IsFaulted)
+                {
+                    // ReSharper disable once AssignNullToNotNullAttribute
+                    // ReSharper disable once PossibleNullReferenceException
+                    tcs.TrySetException(t.Exception.InnerException);
+                }
+                else
+                {
+                    var br = new BaseResponse(t.Result.Data.Error) { Command = t.Result.Command};
+                    tcs.TrySetResult(br);
+                }
+            });
+
+            return tcs.Task;
+        }
+
+        public Task<INikoResponse<IReadOnlyList<ILocation>>> GetLocations()
+        {
+            var tcs = new TaskCompletionSource<INikoResponse<IReadOnlyList<ILocation>>>();
+            SendCommand<IReadOnlyList<ILocation>>(new GetLocationsCommand(), new LocationsConverter()).ContinueWith(t =>
+            {
+                if (t.IsFaulted)
+                    // ReSharper disable once AssignNullToNotNullAttribute
+                    // ReSharper disable once PossibleNullReferenceException
                     tcs.TrySetException(t.Exception.InnerException);
                 else
                     tcs.TrySetResult(t.Result);
@@ -113,12 +156,14 @@ namespace Net.ArcanaStudio.NikoSDK
             return tcs.Task;
         }
 
-        public Task<INikoResponse<IBaseResponse>> StartEvents()
+        public Task<INikoResponse<IReadOnlyList<IAction>>> GetActions()
         {
-            var tcs = new TaskCompletionSource<INikoResponse<IBaseResponse>>();
-            SendCommand<BaseResponse>(new StartEventsCommand()).ContinueWith(t =>
+            var tcs = new TaskCompletionSource<INikoResponse<IReadOnlyList<IAction>>>();
+            SendCommand<IReadOnlyList<IAction>>(new GetActionsCommand(), new ActionsConverter()).ContinueWith(t =>
             {
                 if (t.IsFaulted)
+                    // ReSharper disable once AssignNullToNotNullAttribute
+                    // ReSharper disable once PossibleNullReferenceException
                     tcs.TrySetException(t.Exception.InnerException);
                 else
                     tcs.TrySetResult(t.Result);
@@ -127,43 +172,20 @@ namespace Net.ArcanaStudio.NikoSDK
             return tcs.Task;
         }
 
-        public Task<INikoResponse<ILocations>> GetLocations()
+        public Task<IBaseResponse> ExecuteCommand(int id, int value)
         {
-            var tcs = new TaskCompletionSource<INikoResponse<ILocations>>();
-            SendCommand<ILocations>(new GetLocationsCommand(), new LocationsConcreteTypeConverter()).ContinueWith(t =>
+            var tcs = new TaskCompletionSource<IBaseResponse>();
+            SendCommand<ErrorImp>(new ExecuteCommand(id,value), new BaseResponseConverter()).ContinueWith(t =>
             {
                 if (t.IsFaulted)
+                    // ReSharper disable once AssignNullToNotNullAttribute
+                    // ReSharper disable once PossibleNullReferenceException
                     tcs.TrySetException(t.Exception.InnerException);
                 else
-                    tcs.TrySetResult(t.Result);
-            });
-
-            return tcs.Task;
-        }
-
-        public Task<INikoResponse<IActions>> GetActions()
-        {
-            var tcs = new TaskCompletionSource<INikoResponse<IActions>>();
-            SendCommand<IActions>(new GetActionsCommand(), new ActionsConcreteTypeConverter()).ContinueWith(t =>
-            {
-                if (t.IsFaulted)
-                    tcs.TrySetException(t.Exception.InnerException);
-                else
-                    tcs.TrySetResult(t.Result);
-            });
-
-            return tcs.Task;
-        }
-
-        public Task<INikoResponse<IBaseResponse>> ExecuteCommand(int id, int value)
-        {
-            var tcs = new TaskCompletionSource<INikoResponse<IBaseResponse>>();
-            SendCommand<IBaseResponse>(new ExecuteCommand(id,value), new ConcreteTypeConverter<IBaseResponse,BaseResponse>()).ContinueWith(t =>
-            {
-                if (t.IsFaulted)
-                    tcs.TrySetException(t.Exception.InnerException);
-                else
-                    tcs.TrySetResult(t.Result);
+                {
+                    var br = new BaseResponse(t.Result.Data.Error) { Command = t.Result.Command };
+                    tcs.TrySetResult(br);
+                }
             });
 
             return tcs.Task;
@@ -178,14 +200,14 @@ namespace Net.ArcanaStudio.NikoSDK
 #endif
             IDisposable observer = null;
 
-            observer = _observableResponses.Subscribe(new ActionObserver<string>(s =>
+            observer = _observableResponses.Subscribe(new ActionObserver<JObject>(jo =>
             {
                 //Check if it is response from same command
-                if (s.IndexOf(command.CommandName, StringComparison.OrdinalIgnoreCase) > 0)
+                if (jo.ContainsKey("cmd") && jo["cmd"].Value<string>().Equals(command.CommandName, StringComparison.OrdinalIgnoreCase))
                 {
                     try
                     {
-                            tcs.TrySetResult(Deserialize<T>(s, converters));
+                        tcs.TrySetResult(Deserialize<T>(jo.ToString(), converters));
                     }
                     catch (Exception e)
                     {
@@ -193,16 +215,21 @@ namespace Net.ArcanaStudio.NikoSDK
                     }
                     finally
                     {
+                        // ReSharper disable once PossibleNullReferenceException
+                        // ReSharper disable once AccessToModifiedClosure
                         observer.Dispose();
                     }
                 }
-            }, e =>
-            {
-                tcs.SetException(e);
-                observer.Dispose();
             }));
 
-            _tcpClient.GetStream().WriteAsync(bytes, 0, bytes.Length);
+            try
+            {
+                _tcpClient.WriteAsync(bytes, 0, bytes.Length);
+            }
+            catch (Exception e)
+            {
+                tcs.TrySetException(e);
+            }
 
             return tcs.Task;
         }
@@ -222,10 +249,9 @@ namespace Net.ArcanaStudio.NikoSDK
             if (IsConnected)
                 return;
 
-            _tcpClient = new TcpClient(_ipaddress, 8000);
+            _tcpClient.Start();
 
-
-            _tcpClient.Client.SetSocketOption(SocketOptionLevel.Socket,SocketOptionName.KeepAlive,true);
+            _readFromSocket = true;
 
 #pragma warning disable 4014
             ReadData();
@@ -234,34 +260,32 @@ namespace Net.ArcanaStudio.NikoSDK
 
         private async Task ReadData()
         {
-            bool listen = true;
-            var stream = _tcpClient.GetStream();
             var buffer = new byte[10000];
-            int index = 0;
+            var index = 0;
 
-            while (listen)
+            while (_readFromSocket)
             {
-                var br = await stream.ReadAsync(buffer, index, buffer.Length - index);
-
-                if (br == 0)
-                    continue;
+                var br = await _tcpClient.ReadAsync(buffer, index, buffer.Length - index);
 
                 index += br;
 
                 if (buffer[index - 2] == '\r' || buffer[index - 1] == '\n')
                 {
                     var datastring = Encoding.ASCII.GetString(buffer, 0, index);
-                    foreach (var s in datastring.Split(new[] {"\r\n"},StringSplitOptions.RemoveEmptyEntries))
-                    {
-                        if (s.StartsWith("{\"event\""))
-                            _observableEvents.Add(s);
-                        else
-                            _observableResponses.Add(s);
-                    }
-                    index = 0;
+
 #if DEBUG
                     Debug.WriteLine("Message received : " + datastring);
 #endif
+
+                    foreach (var s in datastring.Split(new[] {"\r\n"},StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        var jo = JObject.Parse(s);
+                        if (jo.ContainsKey("event"))
+                            SendEvent(s);
+                        else
+                            _observableResponses.Add(jo);
+                    }
+                    index = 0;
                 }  
             }
         }
@@ -269,19 +293,16 @@ namespace Net.ArcanaStudio.NikoSDK
         public void StopClient()
         {
             if (IsConnected)
-                _tcpClient.Close();
+            {
+                _readFromSocket = false;
+                _tcpClient.Stop();
+            }
         }
 
         private void SendEvent(string eventdata)
         {
-            var eventlist = eventdata.Split('\n').Where(d => !string.IsNullOrEmpty(d));
-
-            foreach (var e in eventlist)
-            {
-                var theevent = JsonConvert.DeserializeObject<EventImp>(e, new ConcreteTypeConverter<IEventItem, EventItem>());
-                OnValueChanged?.Invoke(this, theevent);
-            }
-
+            var theevent = JsonConvert.DeserializeObject<EventImp>(eventdata, new EventConverter());
+            OnValueChanged?.Invoke(this, theevent);
         }
 
    

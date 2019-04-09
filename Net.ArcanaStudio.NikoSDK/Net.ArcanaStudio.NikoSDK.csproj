@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.3</Version>
+    <Version>1.1.0</Version>
     <Authors>Olivier Matis</Authors>
     <Company>Arcana Studio</Company>
     <Description>Niko Home Control SDK for .NET Standard</Description>
@@ -15,7 +15,12 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RootNamespace>Net.ArcanaStudio.NikoSDK</RootNamespace>
     <PackageId>Net.ArcanaStudio.NikoSDK</PackageId>
-    <PackageReleaseNotes>1.0.3
+    <PackageReleaseNotes>1.1.0
+-Added : Unit tests
+- FIXED : Bugs
+- CHANGE : Refactoring
+
+1.0.3
 - FIXED : Values sometimes not well returned from server
 - CHANGE : Action's Location property renamed to LocationId
 
@@ -28,6 +33,11 @@
 1.0
 - Initial release</PackageReleaseNotes>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Net.ArcanaStudio.NikoSDK.0.8.0.nupkg" />
+    <None Remove="nuget.exe" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
